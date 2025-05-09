@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Compiler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        select, textarea, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            white-space: pre-wrap;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Online Code Compiler</h1>
+
+        <label for="languageSelect">Select Language:</label>
+        <select id="languageSelect">
+            <option value="java">Java</option>
+            <option value="python">Python</option>
+            <option value="c">C</option>
+        </select>
+
+        <label for="codeInput">Enter Your Code:</label>
+        <textarea id="codeInput" rows="10" placeholder="Write your code here..."></textarea>
+
+        <button onclick="saveCode()">Save</button>
+        <button onclick="runCode()">Run</button>
+
+        <h3>Output:</h3>
+        <pre id="output">Your output will appear here...</pre>
+    </div>
+
+    <script>
+        // Function to save the code to localStorage
+        function saveCode() {
+          const code = document.getElementById('codeInput').value;
+          const language = document.getElementById('languageSelect').value;
+
+          if (!code) {
+            alert("Please enter some code before saving.");
+            return;
+          }
+
+          // Store the code and language in localStorage
+          localStorage.setItem('savedCode', code);
+          localStorage.setItem('selectedLanguage', language);
+
+          alert('Code and language saved successfully!');
+        }
+
+        // Function to run the code by sending it to the backend
+        function runCode() {
+          const code = document.getElementById('codeInput').value;
+          const language = document.getElementById('languageSelect').value;
+          const outputElement = document.getElementById('output');
+
+          if (!code) {
+            outputElement.innerText = 'Please write some code before running.';
+            return;
+          }
+
+          if (!language) {
+            outputElement.innerText = 'Please select a language before running.';
+            return;
+          }
+
+          outputElement.innerText = 'Running...'; // Show a loading message
+
+          // Send the code and language to the backend via a POST request
+          fetch('http://localhost:3000/execute', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ code: code, language: language }),
+          })
+            .then(response => response.json())
+            .then(data => {
+              // Display output or error message
+              if (data.output) {
+                outputElement.innerText = data.output;
+              } else if (data.error) {
+                outputElement.innerText = `Error: ${data.error}`;
+              }
+            })
+            .catch(error => {
+              outputElement.innerText = `Error executing code: ${error.message}`;
+            });
+        }
+
+        // Load saved code and language if they exist when the page loads
+        window.onload = function() {
+          const savedCode = localStorage.getItem('savedCode');
+          const selectedLanguage = localStorage.getItem('selectedLanguage');
+
+          if (savedCode) {
+            document.getElementById('codeInput').value = savedCode;
+          }
+
+          if (selectedLanguage) {
+            document.getElementById('languageSelect').value = selectedLanguage;
+          }
+        };
+    </script>
+</body>
+</html>

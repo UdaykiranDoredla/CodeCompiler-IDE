@@ -1,0 +1,151 @@
+/* General Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #007acc; /* Blue background color */
+  color: #d4d4d4; /* Light text color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Container */
+.container {
+  text-align: center;
+  width: 80%;
+  max-width: 1000px;
+}
+
+/* Header Container: Aligns heading and buttons */
+.header-container {
+  display: flex;
+  justify-content: space-between; /* Aligns left and right sections */
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Left section for heading and language selection */
+.left-section {
+  text-align: left;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.language-selection label {
+  font-size: 18px;
+  color: #ffffff;
+  margin-right: 10px;
+}
+
+.language-selection select {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: #ffffff;
+  color: #007acc;
+}
+
+/* Right section for buttons */
+.right-section {
+  text-align: right;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ffffff;
+  color: #007acc;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Flexbox layout for Code Execution Panel */
+.code-editor-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+}
+
+/* Left: Code Writing Panel */
+.code-writing-panel {
+  width: 48%;
+}
+
+textarea {
+  width: 100%;
+  height: 300px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  resize: vertical;
+}
+
+/* Right: Code Output Panel */
+.code-output-panel {
+  width: 48%;
+}
+
+pre {
+  width: 100%;
+  height: 300px;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 20px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  overflow-y: auto;
+}
+
+/* Explanation Section */
+.explanation {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.explanation h2 {
+  font-size: 50px;
+  color: #ffffff;
+}
+
+.explanation p {
+  font-size: 16px;
+  color: #ffffff;
+  max-width: 600px;
+}
+
+/* External link */
+.external-link {
+  margin-top: 20px;
+}
+
+.external-link a {
+  color: #ffeb3b;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.external-link a:hover {
+  text-decoration: underline;
+}
